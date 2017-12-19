@@ -32,6 +32,11 @@ class ReCaptcha2
     protected $url;
 
     /**
+     * @var string
+     */
+    protected $userAgent = 'MyAgent/1.0';
+
+    /**
      * ReCaptcha2 constructor.
      * @param array $config
      */
@@ -71,13 +76,18 @@ class ReCaptcha2
             'response' => $this->reCaptcha()
         );
 
+        // This parameter is optional, if exist is add in request
+        if ($this->ipAddress()) {
+            $data['remoteip'] = $this->ipAddress();
+        }
+
         $query = http_build_query($data);
 
         $options = array(
             'http' => array(
                 'header' => "Content-Type: application/x-www-form-urlencoded\r\n" .
                     "Content-Length: " . strlen($query) . "\r\n" .
-                    "User-Agent:MyAgent/1.0\r\n",
+                    "User-Agent:" . $this->userAgent() . "\r\n",
                 'method' => 'POST',
                 'content' => $query
             )
@@ -166,6 +176,21 @@ class ReCaptcha2
     }
 
     /**
+     * Setter and Getter to userAgent
+     * @param null $userAgent
+     * @return $this|string
+     */
+    public function userAgent($userAgent = null)
+    {
+        if (!is_null($userAgent)) {
+            $this->userAgent = $userAgent;
+            return $this;
+        }
+
+        return $this->userAgent;
+    }
+
+    /**
      * Validate data to sent
      * @return bool
      */
@@ -173,7 +198,6 @@ class ReCaptcha2
     {
         return !empty($this->url())
             && !empty($this->secret())
-            && !empty($this->ipAddress())
             && !empty($this->reCaptcha());
     }
 
