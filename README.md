@@ -12,8 +12,10 @@ Use example
   $params = [
        'url' => 'https://www.google.com/recaptcha/api/siteverify',
        'secret' => 'YOUR_SECRET_FROM_RECAPTCHA',
-       'ipAddress' => '127.0.0.1',
        'reCaptcha' => $_POST['g-recaptcha-response']
+       // Optional parameters
+       'userAgent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36'
+       'ipAddress' => '127.0.0.1',
   ];
 
   try {

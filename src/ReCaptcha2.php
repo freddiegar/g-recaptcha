@@ -57,6 +57,10 @@ class ReCaptcha2
         if (!empty($config['url'])) {
             $this->url($config['url']);
         }
+
+        if (!empty($config['userAgent'])) {
+            $this->userAgent($config['userAgent']);
+        }
     }
 
     /**
