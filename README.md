@@ -10,7 +10,6 @@ Use example
 --
 ```php
   $params = [
-       'url' => 'https://www.google.com/recaptcha/api/siteverify',
        'secret' => 'YOUR_SECRET_FROM_RECAPTCHA',
        'reCaptcha' => $_POST['g-recaptcha-response']
        // Optional parameters

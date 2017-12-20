@@ -29,7 +29,7 @@ class ReCaptcha2
     /**
      * @var string
      */
-    protected $url;
+    protected $url = 'https://www.google.com/recaptcha/api/siteverify';
 
     /**
      * @var string
@@ -42,24 +42,10 @@ class ReCaptcha2
      */
     public function __construct(array $config = [])
     {
-        if (!empty($config['reCaptcha'])) {
-            $this->reCaptcha($config['reCaptcha']);
-        }
-
-        if (!empty($config['secret'])) {
-            $this->secret($config['secret']);
-        }
-
-        if (!empty($config['ipAddress'])) {
-            $this->ipAddress($config['ipAddress']);
-        }
-
-        if (!empty($config['url'])) {
-            $this->url($config['url']);
-        }
-
-        if (!empty($config['userAgent'])) {
-            $this->userAgent($config['userAgent']);
+        foreach ($config as $name => $value) {
+            if (property_exists($this, $name)) {
+                $this->{$name}($value);
+            }
         }
     }
 
